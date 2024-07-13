@@ -4,11 +4,8 @@ LABEL maintainer="SushiBox <ikaproxy@sushibox.dev>"
 
 # Install Squid and other necessary tools
 RUN apk add --no-cache ca-certificates bash curl squid sed \
-    # Create and set proper permissions for Squid log directory
-    && mkdir -p /var/spool/squid /var/log/squid \
-    && chown -R squid:squid /var/spool/squid /var/log/squid \
-    # Ensure Squid cache directories are created
-    && squid -z
+    && mkdir -p /var/spool/squid /var/log/squid /etc/squid/ssl_cert \
+    && chown -R squid:squid /var/spool/squid /var/log/squid /etc/squid/ssl_cert
 
 # Add Squid configuration and entrypoint script
 COPY squid.conf /etc/squid/squid.conf
